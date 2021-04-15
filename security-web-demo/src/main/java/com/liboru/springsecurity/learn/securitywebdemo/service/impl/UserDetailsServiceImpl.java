@@ -32,6 +32,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         String authority = "";
         if("zhangsan".equals(username)){
             authority = "admin,ROLE_sale2";
+        }else if("admin".equals(username)){
+            authority = "ROLE_admin";
         }else{
             authority = "normal,ROLE_sale1";
         }
