@@ -5,13 +5,10 @@
     <title>登录</title>
 </head>
 <body>
-    <form action="/user/login" method="post">
-        <!--
-            用户名和密码的name必须分别是 username和password
-            因为在 UsernamePasswordAuthenticationFilter.attemptAuthentication() 中指定了
-         -->
+    <form action="/user/login" autocomplete="off" method="post">
         用户名：<input type="text" name="username"><br><br>
         密码：<input type="password" name="password" ><br><br>
+        记住我：<input type="checkbox" name="remember-me" ><br><br>
         <button type="submit">登录</button>
     </form>
 </body>
