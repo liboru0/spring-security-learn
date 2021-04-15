@@ -48,15 +48,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     // 用户有sale1角色才能访问/test03
                     .antMatchers("/test03").hasRole("sale1")
                     // 用户有sale1或者sale2角色能访问/test04
-                    .antMatchers("/test04").hasAnyRole("sale1","sale2")
-                .and().csrf().disable() // 关闭csrf防护
-                // 配置没有权限访问时跳转的自定义页面
-                .exceptionHandling().accessDeniedPage("/unauth.html");
+                    .antMatchers("/test04").hasAnyRole("sale1","sale2");
+        // 配置没有权限访问时跳转的自定义页面
+        http.exceptionHandling().accessDeniedPage("/unauth.html");
         // 配置登出
         http.logout().logoutUrl("/logout").logoutSuccessUrl("/hello").permitAll();
         // 配置记住我
         http.rememberMe().tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(60);
+        http.csrf().disable(); // 关闭csrf防护
     }
 
     @Bean
