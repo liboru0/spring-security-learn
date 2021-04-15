@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 .loginPage("/login.html") // 登录页
                 .loginProcessingUrl("/user/login") // 登录访问路径
-                .defaultSuccessUrl("/index") // 登录成功之后跳转的路径
+                .defaultSuccessUrl("/success.html") // 登录成功之后跳转的路径
                 .permitAll()
                 .and().authorizeRequests()
                     .antMatchers("/","/hello","/user/login").permitAll() // 设置哪些路径可以直接访问，不需要认证
@@ -45,6 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().csrf().disable() // 关闭csrf防护
                 // 配置没有权限访问时跳转的自定义页面
                 .exceptionHandling().accessDeniedPage("/unauth.html");
+        // 配置登出
+        http.logout().logoutUrl("/logout").logoutSuccessUrl("/hello").permitAll();
     }
 
     @Bean
