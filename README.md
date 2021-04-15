@@ -1,2 +1,2 @@
 # spring-security-learn
-SpringSecurity Learn
+SpringSecurityLearn

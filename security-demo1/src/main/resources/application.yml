@@ -1,0 +1,6 @@
+#spring:
+#  security:
+#    user:
+#      name: zhangsan
+#      password: 123
+#      roles: admin
