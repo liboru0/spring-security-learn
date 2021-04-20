@@ -18,6 +18,10 @@ public class SecurityUser implements UserDetails {
         this.permissionValueList = permissionValueList;
     }
 
+    public List<String> getPermissionValueList() {
+        return permissionValueList;
+    }
+
     //当前权限
     private List<String> permissionValueList;
 

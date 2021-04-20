@@ -5,15 +5,20 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.util.CollectionUtils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 授权过滤器
@@ -49,8 +54,13 @@ public class TokenAuthFilter extends BasicAuthenticationFilter {
         String token = request.getHeader("token");
         if(token!=null){
             String username = tokenManager.getUserInfoFromToken(token);
-            List<GrantedAuthority> permissionVaules = (List<GrantedAuthority>) redisTemplate.opsForValue().get(username);
-            return new UsernamePasswordAuthenticationToken(username,token,permissionVaules);
+            List<String> permissionVaules = (List<String>) redisTemplate.opsForValue().get(username);
+            List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+            if(!CollectionUtils.isEmpty(permissionVaules)){
+                authorities = permissionVaules.stream().filter(Objects::nonNull)
+                        .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+            }
+            return new UsernamePasswordAuthenticationToken(username,token,authorities);
         }
         return null;
     }
