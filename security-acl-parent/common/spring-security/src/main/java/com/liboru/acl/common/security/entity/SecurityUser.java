@@ -13,6 +13,11 @@ public class SecurityUser implements UserDetails {
 
     //当前登录用户
     private transient User currentUserInfo;
+
+    public void setPermissionValueList(List<String> permissionValueList) {
+        this.permissionValueList = permissionValueList;
+    }
+
     //当前权限
     private List<String> permissionValueList;
 

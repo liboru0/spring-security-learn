@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.liboru.springsecurity.learn</groupId>
-            <artifactId>service-base</artifactId>
+            <artifactId>spring-security</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
