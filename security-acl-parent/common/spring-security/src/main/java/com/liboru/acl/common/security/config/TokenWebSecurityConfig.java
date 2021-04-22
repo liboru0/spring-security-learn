@@ -45,6 +45,7 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and().logout().logoutUrl("/admin/acl/index/logout")
                 .addLogoutHandler(new TokenLogoutHandler(tokenManager, redisTemplate)).and()
+                // 配置两个过滤器
                 .addFilter(new TokenLoginFilter(authenticationManager(), tokenManager, redisTemplate))
                 .addFilter(new TokenAuthFilter(authenticationManager(), tokenManager, redisTemplate)).httpBasic();
     }
